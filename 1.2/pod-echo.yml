@@ -1,8 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: netology-web-echoserver
-spec:
+  name: netology-pod
   containers:
     - name: netology-web-echoserver
       image: gcr.io/kubernetes-e2e-test-images/echoserver:2.2
