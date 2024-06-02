@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-dep-nfs
+spec:
+  selector:
+    matchLabels:
+      app: storage-dep-nfs
+  template:
+    metadata:
+      labels:
+        app: storage-dep-nfs
+        namespace: default
+    spec:
+      volumes:
+        - name: vol
+          persistentVolumeClaim:
+            claimName: pvc-nfs
+      containers:
+      - name: multitool
+        image: dockerhub.timeweb.cloud/wbitt/network-multitool
+        volumeMounts:
+          - name: vol
+            mountPath: /test

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storeonce-deploy
+spec:
+  selector:
+    matchLabels:
+      app: storeonce-deploy
+  template:
+    metadata:
+      labels:
+        app: storeonce-deploy
+        namespace: default
+    spec:
+      volumes:
+        - name: vol
+          persistentVolumeClaim:
+            claimName: pvc-vol
+      containers:
+      - name: multitool
+        image: dockerhub.timeweb.cloud/wbitt/network-multitool
+        volumeMounts:
+          - name: vol
+            mountPath: /test
+      - name: busybox
+        image: dockerhub.timeweb.cloud/busybox
+        command: ['sh', '-c', 'while true; do date >> /test/test.txt; sleep 5; done']
+        volumeMounts:
+          - name: vol
+            mountPath: /test
