@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storeonse
+spec:
+  selector:
+    matchLabels:
+      app: storeonse
+  template:
+    metadata:
+      labels:
+        app: storeonse
+    spec:
+      volumes:
+        - name: data
+          emptyDir: {}
+      containers:
+      - name: multitool
+        image: wbitt/network-multitool
+        volumeMounts:
+          - name: data
+            mountPath: /test
+      - name: busybox
+        image: busybox
+        command: ['sh', '-c', 'while true; do date >> /test/test.txt; sleep 5; done']
+        volumeMounts:
+          - name: data
+            mountPath: /test
