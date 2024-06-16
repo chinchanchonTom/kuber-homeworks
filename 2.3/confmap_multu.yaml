@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: multitoolport
+  namespace: default
+data:
+  HTTP_PORT: "8080"
